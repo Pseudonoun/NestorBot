@@ -1,0 +1,11 @@
+I created this git for our Bot.  I have started blank in order to begin clean.  And will import aspects of
+the origional bots as they are needed.  I would prefer if we were to build the basic bot first, and make
+that the master, Everything beyond that can be a fork that could be integrated into the master if it proves
+useful.
+
+I would also suggest that we share this Git with the professor so he can track our use and see various iterations.
+
+On the name: I chose Nestor from the Asimov novel "I, Robot".  Nestor is the from the story "Lost Little Robot" 
+which is, to my memory, the only instance of a Asimov robot to have a flawed "First Law" and can do harm.
+
+Thus it begins...
