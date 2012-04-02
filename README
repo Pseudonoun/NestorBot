@@ -1,26 +1,27 @@
-I created this git for our Bot.  I have started blank in order to begin clean.  And will import aspects of
-the origional bots as they are needed.  I would prefer if we were to build the basic bot first, and make
-that the master, Everything beyond that can be a fork that could be integrated into the master if it proves
-useful.
+I created this git for our Bot.  I have started blank in order to begin clean.  
+And will import aspects of the origional bots as they are needed.  I would 
+prefer if we were to build the basic bot first, and make that the master, 
+Everything beyond that can be a fork that could be integrated into the master 
+if it proves useful.
 
-I would also suggest that we share this Git with the professor so he can track our use and see various iterations.
+I would also suggest that we share this Git with the professor so he can track
+our use and see various iterations.
 
-On the name: I chose Nestor from the Asimov novel "I, Robot".  Nestor is the from the story "Lost Little Robot" 
-which is, to my memory, the only instance of a Asimov robot to have a flawed "First Law" and can do harm.
+On the name: I chose Nestor from the Asimov novel "I, Robot".  Nestor is the
+from the story "Lost Little Robot" which is, to my memory, the only instance
+of a Asimov robot to have a flawed "First Law" and can do harm.
 
 Thus it begins...
 
 I don't think a robot would violate the first law by killing other robots
 
-Scifi nerd time....
+Scifi nerd time....Imagine the next statement said while wearing a StarFleet
+uniform.  It is a good mental image.
 
-The first is to not harm or to allow harm to come to a human through action or inaction.
-The second law says I robot must follow orders unless the first law would be violated.
-The third is to protect its own existance unless it violates either of the first two.
+That would be the third law if any, and it only prohibits harming itself.
+Robots not letting humans get harmed was first law.  Really, it is a great
+book.  The movie was a poor substitute. 
 
-Nothing in there about not hurting other robots really.  Though theoretically it could be construed as 
-putting their own existance in danger by entering combat in the first place.
-
-Anyway, I have converted the base Raven bot into Nestor_Bot and it compiles and runs
-I'm working on getting it pushed properly with that smart git.  Should be seeing it tonight. We need to
-talk strat this week and make our design doc.
+Added a converted base bot converted from the Raven Bot.  It compiles and
+runs with the usual mild warnings it had before.  Just add the bot to the
+param file.
