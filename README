@@ -11,3 +11,16 @@ which is, to my memory, the only instance of a Asimov robot to have a flawed "Fi
 Thus it begins...
 
 I don't think a robot would violate the first law by killing other robots
+
+Scifi nerd time....
+
+The first is to not harm or to allow harm to come to a human through action or inaction.
+The second law says I robot must follow orders unless the first law would be violated.
+The third is to protect its own existance unless it violates either of the first two.
+
+Nothing in there about not hurting other robots really.  Though theoretically it could be construed as 
+putting their own existance in danger by entering combat in the first place.
+
+Anyway, I have converted the base Raven bot into Nestor_Bot and it compiles and runs
+I'm working on getting it pushed properly with that smart git.  Should be seeing it tonight. We need to
+talk strat this week and make our design doc.
