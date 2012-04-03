@@ -2,14 +2,14 @@
 -------------------------[[ bot parameters ]]----------------------------------
 -------------------------------------------------------------------------------
 
---the number of times a second a bot 'thinks' about weapon selection
-Bot_WeaponSelectionFrequency = 2
+--the number of times a second a bot 'thinks' about weapon selection - was 2
+Bot_WeaponSelectionFrequency = 3
 
---the number of times a second a bot 'thinks' about changing strategy
-Bot_GoalAppraisalUpdateFreq = 4
+--the number of times a second a bot 'thinks' about changing strategy - was 4
+Bot_GoalAppraisalUpdateFreq = 2
 
---the number of times a second a bot updates its target info
-Bot_TargetingUpdateFreq = 2
+--the number of times a second a bot updates its target info - was 2
+Bot_TargetingUpdateFreq = 5
 
 --the number of times a second a bot updates its vision
 Bot_VisionUpdateFreq = 4
@@ -23,15 +23,15 @@ Bot_VisionUpdateFreq = 4
 Bot_AimPersistance = 1
 
 
---how long (in seconds) a bot's sensory memory persists
+--how long (in seconds) a bot's sensory memory persists was 5
 Bot_MemorySpan = 5
 
---goal tweakers
-Bot_HealthGoalTweaker     = 1.0
-Bot_ShotgunGoalTweaker    = 1.0
-Bot_RailgunGoalTweaker    = 1.0
-Bot_RocketLauncherTweaker = 1.0
-Bot_AggroGoalTweaker      = 1.0
+--goal tweakers - all began at 1.0
+Bot_HealthGoalTweaker     = 1.5
+Bot_ShotgunGoalTweaker    = 0.5
+Bot_RailgunGoalTweaker    = 0.5
+Bot_RocketLauncherTweaker = 0.5
+Bot_AggroGoalTweaker      = 1.0  --Fairly well balanced
 
 
 -------------------------[[ steering parameters ]]-----------------------------
@@ -39,7 +39,7 @@ Bot_AggroGoalTweaker      = 1.0
 
 --the radius of the constraining circle for the wander behavior
 WanderRad    = 1.2
---distance the wander circle is projected in front of the agent
+--distance the wander circle is projected in front of the agent - was 2.0
 WanderDist   = 2.0
 --the maximum amount of displacement along the circle each frame
 WanderJitterPerSec = 40.0
@@ -53,11 +53,11 @@ SeekWeight              =  0.5;
 ArriveWeight            =  1.0;
 
 --how close a neighbour must be before an agent considers it
---to be within its neighborhood (for separation)
-ViewDistance            =  15.0;
+--to be within its neighborhood (for separation) was 15
+ViewDistance            =  25.0;
 
 --max feeler length (was 25 * Bot_Scale)
-WallDetectionFeelerLength = 20.0
+WallDetectionFeelerLength = 10.0
 
 --used in path following. Determines how close a bot must be to a waypoint
 --before it seeks the next waypoint

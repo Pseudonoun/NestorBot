@@ -25,3 +25,42 @@ book.  The movie was a poor substitute.
 Added a converted base bot converted from the Raven Bot.  It compiles and
 runs with the usual mild warnings it had before.  Just add the bot to the
 param file.
+
+4/3 - I have altered various figures in our Lua file to observe their influance
+on overall behavior and performance.  I am going for a "sneaky bastard" sort of
+behavior pattern to see how that fares.  My inclination is that it could be good
+as long as he doesn't set up matches as 1v1.  
+
+We could consider having several different lua loadouts depending on the context
+while keeping our functions consistant adding weight depending on the factors of
+the match.
+
+Observations:  
+
+File: Nestor_Bot.lua
+
+Element: WallDetectFeelerLength
+Catagory: Glitch
+Setting too low can cause a bot to get stuck in a wall for a time, making 
+them easy prey.  Observed at value 5.0.  Setting at 10.0 for the time being 
+because I have noticed it allows for easier pursuit and escape vectors.  
+This may be counteracted by higher wall avoidance weight but I will leave 
+that for now.  Here are the elements that have been touched.
+
+Lowered:
+Bot_GoalAppraisalUpdateFreq
+Bot_ShotgunGoalTweaker
+Bot_RailgunGoalTweaker
+Bot_RocketLaucherTweaker
+WallDetectionFeelerLength
+
+Raised:
+ViewDistance - This simply dictates when a target or goal can be focused upon.
+HealthGoalTweaker
+Bot_TargetUpdateFreq
+WeaponSelectionFrequency
+
+Tested by retained:
+AggroGoalTweaker
+Bot_MemorySpan
+WanderDist
