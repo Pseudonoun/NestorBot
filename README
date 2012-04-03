@@ -26,16 +26,26 @@ Added a converted base bot converted from the Raven Bot.  It compiles and
 runs with the usual mild warnings it had before.  Just add the bot to the
 param file.
 
+We could also consider having several different lua loadouts depending on the
+overall context while keeping our functions consistant adding weight depending
+on the factors of the match.
+
 4/3 - I have altered various figures in our Lua file to observe their influance
 on overall behavior and performance.  I am going for a "sneaky bastard" sort of
 behavior pattern to see how that fares.  My inclination is that it could be good
 as long as he doesn't set up matches as 1v1.  
 
-We could consider having several different lua loadouts depending on the context
-while keeping our functions consistant adding weight depending on the factors of
-the match.
 
 Observations:  
+
+General:
+
+4/3 - If we can set behaviors to lightly avoid being positioned next to a wall
+when being fired it would help with lowering the frequency of splash damage from
+rockets that would normally miss us.  This is an argument for raising
+the WallDetectionFeelerLength dispite the pathing advantage it gives.  Or it
+we could just do this in a conditional statement that adds some to the buffer
+if splash is a hazzard.
 
 File: Nestor_Bot.lua
 
@@ -64,3 +74,6 @@ Tested by retained:
 AggroGoalTweaker
 Bot_MemorySpan
 WanderDist
+
+
+
