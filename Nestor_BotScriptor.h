@@ -12,7 +12,7 @@
 //  Desc:   A Singleton Scriptor class for use with the Raven project
 //-----------------------------------------------------------------------------
 #include "Script/scriptor.h"
-
+#include "../../lua/Raven_Scriptor.h"
 
 
 //#define script Nestor_Scriptor::Instance()

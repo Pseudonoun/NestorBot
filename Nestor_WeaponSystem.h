@@ -32,7 +32,7 @@ public:
                      double      AimAccuracy,
                      double      AimPersistance);
 
-
+  void          SelectWeapon();
 };
 
 #endif

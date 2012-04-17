@@ -28,6 +28,9 @@ public:
   NestorGoal_Think(AbstRaven_Bot* pBot);
   ~NestorGoal_Think();
 
+    //top level goal types
+//   virtual void AddGoal_GetItem(unsigned int ItemType);
+//  virtual void AddGoal_Camp();  //Not used yet, rethinking approach
 };
 
 
