@@ -33,6 +33,13 @@ Bot_RailgunGoalTweaker    = 0.5
 Bot_RocketLauncherTweaker = 0.5
 Bot_AggroGoalTweaker      = 1.0  --Fairly well balanced
 
+-------------------------[[ Attack Parameters ]]-----------------------------
+-------------------------------------------------------------------------------
+
+-- RocketLauncher_IdealRange  = 200
+-- RailGun_IdealRange  = 150
+-- ShotGun_IdealRange  = 75
+-- Blaster_IdealRange	= 25
 
 -------------------------[[ steering parameters ]]-----------------------------
 -------------------------------------------------------------------------------

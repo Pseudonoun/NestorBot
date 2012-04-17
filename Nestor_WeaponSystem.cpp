@@ -26,7 +26,7 @@ Nestor_WeaponSystem::Nestor_WeaponSystem(AbstRaven_Bot* owner,
 
 
 //-------------------------------- SelectWeapon -------------------------------
-// This is the Burke Select Weapon routine, as of yet unmodified.  I believe I want
+// This is the Burke Select Weapon routine, as yet unmodified.  I believe I want
 // to alter this at the think level but might return to make changes later.
 //-----------------------------------------------------------------------------
 void Nestor_WeaponSystem::SelectWeapon()
@@ -49,9 +49,9 @@ void Nestor_WeaponSystem::SelectWeapon()
       //distance to target and ammo remaining)
       if (curWeap->second)
       {
-        double score = curWeap->second->GetDesirability(DistToTarget);
-
-        //if it is the most desirable so far select it
+		
+		double score = curWeap->second->GetDesirability(DistToTarget);
+		        //if it is the most desirable so far select it
         if (score > BestSoFar)
         {
           BestSoFar = score;
@@ -68,3 +68,34 @@ void Nestor_WeaponSystem::SelectWeapon()
     m_pCurrentWeapon = m_WeaponMap[type_blaster];
   }
 }
+
+//--------------------------NestorRenderDesirabilities ------------------------
+//----------------------MAY NOT USE THIS LUA IS MAY BE BETTER------------------
+/*
+void Nestor_WeaponSystem::RenderDesirabilities()const
+{
+  Vector2D p = m_pOwner->Pos();
+
+  int num = 0;
+  
+  WeaponMap::const_iterator curWeap;
+  for (curWeap=m_WeaponMap.begin(); curWeap != m_WeaponMap.end(); ++curWeap)
+  {
+    if (curWeap->second) num++;
+  }
+
+  int offset = 15 * num;
+
+    for (curWeap=m_WeaponMap.begin(); curWeap != m_WeaponMap.end(); ++curWeap)
+    {
+      if (curWeap->second)
+      {
+        double score = curWeap->second->GetLastDesirabilityScore();
+        std::string type = GetNameOfType(curWeap->second->GetType());
+
+        gdi->TextAtPos(p.x+10.0, p.y-offset, ttos(score) + " " + type);
+
+        offset+=15;
+      }
+    }
+} */

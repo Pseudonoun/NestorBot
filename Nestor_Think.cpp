@@ -27,18 +27,24 @@ NestorGoal_Think::NestorGoal_Think(AbstRaven_Bot* pBot):Goal_Think (pBot)
 	
 	// load priorities from script
 	Nestor_BotScriptor* pMyScript = Nestor_BotScriptor::Instance();
-  double HealthBias = pMyScript->GetDouble("Bot_HealthGoalTweaker");
-  double ShotgunBias = pMyScript->GetDouble("Bot_ShotgunGoalTweaker");
-  double RocketLauncherBias = pMyScript->GetDouble("Bot_RocketLauncherTweaker");
-  double RailgunBias = pMyScript->GetDouble("Bot_RailgunGoalTweaker");
+  double tilt = (m_pOwner->Health() - m_pOwner->GetTargetSys()->GetTarget()->Health()) / (100 - m_pOwner->GetTargetSys()->GetTarget()->Health());
+  double splash = 0;
+  if ( m_pOwner->GetTargetSys()->GetTarget()->GetTargetBot()->Pos() != m_pOwner->Pos() ) {
+	splash = 1 - (Vec2DDistance(m_pOwner->GetTargetSys()->GetTarget()->Pos(), m_pOwner->GetTargetSys()->GetTarget()->GetTargetBot()->Pos()) / 100);
+	}
+  double HealthBias = pMyScript->GetDouble("Bot_HealthGoalTweaker") + tilt;
+  double ShotgunBias = pMyScript->GetDouble("Bot_ShotgunGoalTweaker") + tilt;
+  double RocketLauncherBias = pMyScript->GetDouble("Bot_RocketLauncherTweaker") + splash;
+  double RailgunBias = pMyScript->GetDouble("Bot_RailgunGoalTweaker") + splash;
   double ExploreBias = pMyScript->GetDouble("Bot_ExploreTweaker");
-  double AttackBias = pMyScript->GetDouble("Bot_AggroGoalTweaker");
+  double AttackBias = pMyScript->GetDouble("Bot_AggroGoalTweaker") - tilt;
+
 
   // get rid of the evaluators added by the superclass
   m_Evaluators.clear();
 
   //create the evaluator objects
-  m_Evaluators.push_back(new GetHealthGoal_Evaluator(HealthBias));
+  
   m_Evaluators.push_back(new ExploreGoal_Evaluator(ExploreBias));
   m_Evaluators.push_back(new AttackTargetGoal_Evaluator(AttackBias));
   m_Evaluators.push_back(new GetWeaponGoal_Evaluator(ShotgunBias,
@@ -47,7 +53,8 @@ NestorGoal_Think::NestorGoal_Think(AbstRaven_Bot* pBot):Goal_Think (pBot)
                                                      type_rail_gun));
   m_Evaluators.push_back(new GetWeaponGoal_Evaluator(RocketLauncherBias,
                                                      type_rocket_launcher));
- 
+  m_Evaluators.push_back(new GetHealthGoal_Evaluator(HealthBias));
+
 }
 //----------------------------- dtor ------------------------------------------
 //-----------------------------------------------------------------------------

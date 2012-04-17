@@ -18,6 +18,7 @@
 #include "game/MovingEntity.h"
 #include "misc/utils.h"
 #include "Nestor_TargetingSystem.h"
+
 #include "../../AbstRaven_Bot.h"
 #include "Nestor_BotScriptor.h"
 
