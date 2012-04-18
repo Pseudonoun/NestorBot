@@ -36,7 +36,7 @@ void Nestor_WeaponSystem::SelectWeapon()
   if (m_pOwner->GetTargetSys()->isTargetPresent() && m_pOwner->GetTargetSys()->isTargetWithinFOV())
   {
     //calculate the distance to the target
-    double DistToTarget = Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos());
+    double DistToTarget = Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos()) + (m_pOwner->GetTargetBot()->Health() / 2);
 
     //for each weapon in the inventory calculate its desirability given the 
     //current situation. The most desirable weapon is selected
@@ -45,14 +45,17 @@ void Nestor_WeaponSystem::SelectWeapon()
     WeaponMap::const_iterator curWeap;
     for (curWeap=m_WeaponMap.begin(); curWeap != m_WeaponMap.end(); ++curWeap)
     {
-      //grab the desirability of this weapon (desirability is based upon
-      //distance to target and ammo remaining)
+		//Trying to make a splash damage routine, not effective
+		//double boom = DistToTarget;
+		//if ( (m_pOwner->GetTargetSys()->GetTarget()->GetTargetBot()->Pos() != m_pOwner->Pos()) && ((Vec2DDistance(m_pOwner->GetTargetSys()->GetTarget()->Pos(), m_pOwner->GetTargetSys()->GetTarget()->GetTargetBot()->Pos()) <= 30 )) && (Vec2DDistance(m_pOwner->Pos(), m_pOwner->GetTargetSys()->GetTarget()->Pos()) >= 30 )) {
+		//	boom = boom - (boom / 4);
+		//}
       if (curWeap->second)
       {
 		
 		double score = curWeap->second->GetDesirability(DistToTarget);
 		        //if it is the most desirable so far select it
-        if (score > BestSoFar)
+		if (score > BestSoFar )
         {
           BestSoFar = score;
 

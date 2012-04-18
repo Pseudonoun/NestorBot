@@ -4,6 +4,7 @@
 #include "../../Raven_ObjectEnumerations.h"
 #include "misc/utils.h"
 #include "Nestor_BotScriptor.h"
+#include "../../Raven_SensoryMemory.h"
 
 #include "../../goals/Goal_MoveToPosition.h"
 #include "../../goals/Goal_Explore.h"
@@ -21,25 +22,23 @@
 
 NestorGoal_Think::NestorGoal_Think(AbstRaven_Bot* pBot):Goal_Think (pBot)
 {
-	//Spot for "Run the Hell Away!"
 
-
-	
 	// load priorities from script
 	Nestor_BotScriptor* pMyScript = Nestor_BotScriptor::Instance();
-  double tilt = (m_pOwner->Health() - m_pOwner->GetTargetSys()->GetTarget()->Health()) / (100 - m_pOwner->GetTargetSys()->GetTarget()->Health());
-  double splash = 0;
-  if ( m_pOwner->GetTargetSys()->GetTarget()->GetTargetBot()->Pos() != m_pOwner->Pos() ) {
-	splash = 1 - (Vec2DDistance(m_pOwner->GetTargetSys()->GetTarget()->Pos(), m_pOwner->GetTargetSys()->GetTarget()->GetTargetBot()->Pos()) / 100);
-	}
-  double HealthBias = pMyScript->GetDouble("Bot_HealthGoalTweaker") + tilt;
-  double ShotgunBias = pMyScript->GetDouble("Bot_ShotgunGoalTweaker") + tilt;
-  double RocketLauncherBias = pMyScript->GetDouble("Bot_RocketLauncherTweaker") + splash;
-  double RailgunBias = pMyScript->GetDouble("Bot_RailgunGoalTweaker") + splash;
-  double ExploreBias = pMyScript->GetDouble("Bot_ExploreTweaker");
-  double AttackBias = pMyScript->GetDouble("Bot_AggroGoalTweaker") - tilt;
 
-
+  //double seeWeak =(100 / (m_pOwner->GetTargetSys()->GetTarget()->Health());
+  double seeWeak = (100 - m_pOwner->GetTargetSys()->GetTarget()->Health())/100;
+  double feelWeak = (100 - m_pOwner->Health())/100;
+  std::list<AbstRaven_Bot*> SensedBots;
+  double flank = m_pOwner->GetSensoryMem()->GetListOfRecentlySensedOpponents().size();
+ 
+  double HealthBias = pMyScript->GetDouble("Bot_HealthGoalTweaker") + (seeWeak*flank) + (flank/feelWeak);
+  //double ShotgunBias = pMyScript->GetDouble("Bot_ShotgunGoalTweaker");
+  //double RocketLauncherBias = pMyScript->GetDouble("Bot_RocketLauncherTweaker");
+  //double RailgunBias = pMyScript->GetDouble("Bot_RailgunGoalTweaker");
+  double ExploreBias = pMyScript->GetDouble("Bot_ExploreTweaker") + (flank/feelWeak);
+  double AttackBias = pMyScript->GetDouble("Bot_AggroGoalTweaker") - (flank*feelWeak) + (seeWeak/flank);
+  
   // get rid of the evaluators added by the superclass
   m_Evaluators.clear();
 
@@ -47,12 +46,12 @@ NestorGoal_Think::NestorGoal_Think(AbstRaven_Bot* pBot):Goal_Think (pBot)
   
   m_Evaluators.push_back(new ExploreGoal_Evaluator(ExploreBias));
   m_Evaluators.push_back(new AttackTargetGoal_Evaluator(AttackBias));
-  m_Evaluators.push_back(new GetWeaponGoal_Evaluator(ShotgunBias,
-                                                     type_shotgun));
-  m_Evaluators.push_back(new GetWeaponGoal_Evaluator(RailgunBias,
-                                                     type_rail_gun));
-  m_Evaluators.push_back(new GetWeaponGoal_Evaluator(RocketLauncherBias,
-                                                     type_rocket_launcher));
+  //m_Evaluators.push_back(new GetWeaponGoal_Evaluator(ShotgunBias,
+  //                                                   type_shotgun));
+  //m_Evaluators.push_back(new GetWeaponGoal_Evaluator(RailgunBias,
+  //                                                   type_rail_gun));
+  //m_Evaluators.push_back(new GetWeaponGoal_Evaluator(RocketLauncherBias,
+  //                                                   type_rocket_launcher));
   m_Evaluators.push_back(new GetHealthGoal_Evaluator(HealthBias));
 
 }
@@ -61,6 +60,99 @@ NestorGoal_Think::NestorGoal_Think(AbstRaven_Bot* pBot):Goal_Think (pBot)
 NestorGoal_Think::~NestorGoal_Think()
 {
 
+}
+
+
+
+//----------------------------- Update ----------------------------------------
+// 
+//  this method iterates through each goal option to determine which one has
+//  the highest desirability.
+//-----------------------------------------------------------------------------
+void NestorGoal_Think::Arbitrate()
+{
+  double best = 0;
+  Goal_Evaluator* MostDesirable = 0;
+
+  	// load priorities from script
+	Nestor_BotScriptor* pMyScript = Nestor_BotScriptor::Instance();
+
+  //double seeWeak =(100 / (m_pOwner->GetTargetSys()->GetTarget()->Health());
+  double seeWeak = (100 - m_pOwner->GetTargetSys()->GetTarget()->Health())/100;
+  double feelWeak = (100 - m_pOwner->Health())/100;
+  std::list<AbstRaven_Bot*> SensedBots;
+  double flank = m_pOwner->GetSensoryMem()->GetListOfRecentlySensedOpponents().size();
+ 
+  double HealthBias = pMyScript->GetDouble("Bot_HealthGoalTweaker") + (seeWeak/flank) + (flank/feelWeak);
+//  double ShotgunBias = pMyScript->GetDouble("Bot_ShotgunGoalTweaker");
+//  double RocketLauncherBias = pMyScript->GetDouble("Bot_RocketLauncherTweaker");
+//  double RailgunBias = pMyScript->GetDouble("Bot_RailgunGoalTweaker");
+  double ExploreBias = pMyScript->GetDouble("Bot_ExploreTweaker") + (flank/feelWeak);
+  double AttackBias = pMyScript->GetDouble("Bot_AggroGoalTweaker") - (flank*feelWeak) + (seeWeak/flank);
+  
+  // get rid of the evaluators added by the superclass
+  m_Evaluators.clear();
+
+  //create the evaluator objects
+  
+  m_Evaluators.push_back(new ExploreGoal_Evaluator(ExploreBias));
+  m_Evaluators.push_back(new AttackTargetGoal_Evaluator(AttackBias));
+//  m_Evaluators.push_back(new GetWeaponGoal_Evaluator(ShotgunBias,
+//                                                     type_shotgun));
+//  m_Evaluators.push_back(new GetWeaponGoal_Evaluator(RailgunBias,
+//                                                     type_rail_gun));
+//  m_Evaluators.push_back(new GetWeaponGoal_Evaluator(RocketLauncherBias,
+//                                                     type_rocket_launcher));
+  m_Evaluators.push_back(new GetHealthGoal_Evaluator(HealthBias));
+
+  //iterate through all the evaluators to see which produces the highest score
+  GoalEvaluators::iterator curDes = m_Evaluators.begin();
+  for (curDes; curDes != m_Evaluators.end(); ++curDes)
+  {
+    double desirabilty = (*curDes)->CalculateDesirability(m_pOwner);
+
+    if (desirabilty >= best)
+    {
+      best = desirabilty;
+      MostDesirable = *curDes;
+    }
+  }
+
+  assert(MostDesirable && "<Goal_Think::Arbitrate>: no evaluator selected");
+
+  MostDesirable->SetGoal(m_pOwner);
+}
+
+void NestorGoal_Think::AddGoal_MoveToPosition(Vector2D pos)
+{
+  AddSubgoal( new Goal_MoveToPosition(m_pOwner, pos));
+}
+
+void NestorGoal_Think::AddGoal_Explore()
+{
+  if (notPresent(goal_explore))
+  {
+    RemoveAllSubgoals();
+    AddSubgoal( new Goal_Explore(m_pOwner));
+  }
+}
+
+void NestorGoal_Think::AddGoal_GetItem(unsigned int ItemType)
+{
+  if (notPresent(ItemTypeToGoalType(ItemType)))
+  {
+    RemoveAllSubgoals();
+    AddSubgoal( new Goal_GetItem(m_pOwner, ItemType));
+  }
+}
+
+void NestorGoal_Think::AddGoal_AttackTarget()
+{
+  if (notPresent(goal_attack_target))
+  {
+    RemoveAllSubgoals();
+    AddSubgoal( new Goal_AttackTarget(m_pOwner));
+  }
 }
 /*
 void Goal_Think::AddGoal_GetItem(unsigned int ItemType)

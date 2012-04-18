@@ -9,7 +9,8 @@
 //	Author: Team Nestor
 //  Author of Raven: Mat Buckland (www.ai-junkie.com)
 //
-//  Desc:
+//  Desc: Header for base scripts of Nestor.  This is the Base Raven Bot
+//			header object names made to conform.
 //-----------------------------------------------------------------------------
 #include <vector>
 #include <iosfwd>

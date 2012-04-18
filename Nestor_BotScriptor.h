@@ -9,7 +9,10 @@
 //	Author: Team Nestor
 //  Base Class Author: Mat Buckland (www.ai-junkie.com)
 //
-//  Desc:   A Singleton Scriptor class for use with the Raven project
+//  Desc:   A Singleton Scriptor class for use with the Raven project.
+//			Team Nestor's contribution is the use of lua script selection
+//			based on number of opponents.  Would have liked to add map size
+//			as a factor, and perhaps still will.
 //-----------------------------------------------------------------------------
 #include "Script/scriptor.h"
 #include "../../lua/Raven_Scriptor.h"

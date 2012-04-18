@@ -10,7 +10,10 @@
 //  Base Class Author: Mat Buckland (www.ai-junkie.com)
 //
 //  Desc:   class to select a target from the opponents currently in a bot's
-//          perceptive memory.
+//          perceptive memory.  Modified the target picking conditions
+//			detailed in the function.  Works well with lower bot memory
+//			tweakers.  Avoids needless pursuit of strong enemies and
+//			focuses on easier kills or kill steals.
 //-----------------------------------------------------------------------------
 #include "2d/Vector2D.h"
 #include <list>

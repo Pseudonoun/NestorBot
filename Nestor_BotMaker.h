@@ -11,7 +11,8 @@
 //
 //	Authors: Team Nestor
 //  Base Class Author: Robin Burke 2006 rburke@cs.depaul.edu
-//
+//	
+//	Desc: This is just Raven with object names changed.
 //------------------------------------------------------------------------
 
 #include "../../BotMaker.h"

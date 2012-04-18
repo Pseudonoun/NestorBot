@@ -50,7 +50,7 @@ WanderJitterPerSec = 40.0
 
 --use these values to tweak the amount that each steering force
 --contributes to the total steering force
-SeparationWeight       =   5.0;
+SeparationWeight       =   20.0;
 WallAvoidanceWeight     =  10.0;
 WanderWeight            =  2.0;
 SeekWeight              =  0.5;

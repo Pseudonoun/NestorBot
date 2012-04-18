@@ -7,7 +7,10 @@
 //		Based on Raven_BotSteeringBehavior.h
 //
 //  Desc:   class to encapsulate steering behaviors for a Raven_Bot
-//
+//			Much of the abstract processes seem the sort of thing
+//			one should not take over for ethics reasons.
+//			Tried modfying separation weight through steering behaviors
+//			but the result was a less cowardly bot and more deaths.
 //	Author: Team Nestor
 //  Base Class Author: Mat Buckland 2002 (fup@ai-junkie.com)
 //
@@ -29,7 +32,10 @@ class Raven_Game;
 
 class Nestor_BotSteering : public AbstSteering
 {
-  
+private:
+
+  virtual Vector2D Separation(const std::list<AbstRaven_Bot*> &agents);
+
 public:
 
   Nestor_BotSteering(Raven_Game* world, AbstRaven_Bot* agent);

@@ -8,17 +8,18 @@ Nestor_BotScriptor* Nestor_BotScriptor::Instance()
 }
 
 /*********
-* A simple change to this scrip allows for several lua loadouts depending on
-* number of bots in the match.
+* A simple change to this scrip allows for two lua loadouts depending on
+* number of bots in the match.  Origionally had three but two were too
+* similar in play that there was no point.  No matter the density
+* our bot will make a break for it if too much danger is sensed.
+* The point of Aggro is to suppress that just a bit.
 *********/
 Nestor_BotScriptor::Nestor_BotScriptor():Scriptor()
 {
 	//Pulling the number of bots parameter from the engine
 	int enviro = script->GetInt("NumBots");
-	if ( enviro < 3 ) //1 enemy means we have to me more direct
+	if ( enviro < 3 ) //2 or 1 enemy means we have to me more direct
 		RunScriptFile("Bots/NestorBot/Nestor_Aggro_Bot.lua");
-	else if ( enviro > 4 ) //more than 3 enemies means we can't be as calculating.
-		RunScriptFile("Bots/NestorBot/Nestor_Manic_Bot.lua");
-	else 
+	else	//Normal bot density
 		RunScriptFile("Bots/NestorBot/Nestor_Sneak_Bot.lua");	
 }

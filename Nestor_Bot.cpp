@@ -85,7 +85,9 @@ Nestor_Bot::~Nestor_Bot()
 std::string const Nestor_Bot::GetName () const { return "Nestor"; }
 
 //-------------------------------- Update -------------------------------------
-//
+//	Left this pretty much as it is, tried various shifts in order none seemed
+//	to make any posative effect. Didn't think it would.
+//												-MM
 void Nestor_Bot::DoUpdate()
 {
   //process the currently active goal. Note this is required even if the bot
@@ -99,30 +101,32 @@ void Nestor_Bot::DoUpdate()
   //if the bot is under AI control but not scripted
   if (!isPossessed())
   {           
-    //examine all the opponents in the bots sensory memory and select one
-    //to be the current target
-    if (m_pTargetSelectionRegulator->isReady())
-    {      
-      m_pTargSys->Update();
-    }
-
-    //appraise and arbitrate between all possible high level goals
+	    //appraise and arbitrate between all possible high level goals
     if (m_pGoalArbitrationRegulator->isReady())
     {
        m_pBrain->Arbitrate(); 
     }
-
     //update the sensory memory with any visual stimulus
     if (m_pVisionUpdateRegulator->isReady())
     {
       m_pSensoryMem->UpdateVision();
     }
-  
+	//appraise and arbitrate between all possible high level goals
+    if (m_pGoalArbitrationRegulator->isReady())
+    {
+       m_pBrain->Arbitrate(); 
+    }
     //select the appropriate weapon to use from the weapons currently in
     //the inventory
     if (m_pWeaponSelectionRegulator->isReady())
     {       
       m_pWeaponSys->SelectWeapon();       
+    }
+	    //examine all the opponents in the bots sensory memory and select one
+    //to be the current target
+    if (m_pTargetSelectionRegulator->isReady())
+    {      
+      m_pTargSys->Update();
     }
 
     //this method aims the bot's current weapon at the current target
@@ -134,12 +138,13 @@ void Nestor_Bot::DoUpdate()
 
 
 //--------------------------- HandleMessage -----------------------------------
+//	Didn't change anything here.	-MW
 //-----------------------------------------------------------------------------
 bool Nestor_Bot::HandleMessage(const Telegram& msg)
 {
   //first see if the current goal accepts the message
   if (GetBrain()->HandleMessage(msg)) return true;
- 
+
   //handle any messages not handles by the goals
   switch(msg.Msg)
   {
